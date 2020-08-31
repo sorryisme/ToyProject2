@@ -1,13 +1,13 @@
 spring:
   datasource:
-      url: jdbc:h2:tcp://localhost/~/toyProject2
-      username: sa
-      passowrd:
-      driver-class-name: org.h2.Driver
-    #url: jdbc:mariadb://192.168.219.100:3306/buskingbusking
-    #username: sorry
-    #password: 1111
-    #driver-class-name: org.mariadb.jdbc.Driver
+      #url: jdbc:h2:tcp://localhost/~/toyProject2
+      #username: sa
+      #passowrd:
+      #driver-class-name: org.h2.Driver
+    url: jdbc:mariadb://192.168.0.6:3306/ToyProject2
+    username: sorry
+    password: rlawltjd39
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
