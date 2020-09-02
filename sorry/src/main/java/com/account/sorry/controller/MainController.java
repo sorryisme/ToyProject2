@@ -8,6 +8,11 @@ public class MainController {
 
     @GetMapping("/")
     public String moveIndex(){
-        return "index";
+        return "/index";
+    }
+
+    @GetMapping("/auth/login")
+    public String moveLogin(){
+        return "/auth/login";
     }
 }
