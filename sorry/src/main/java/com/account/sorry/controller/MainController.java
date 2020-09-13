@@ -15,4 +15,9 @@ public class MainController {
     public String moveLogin(){
         return "/auth/login";
     }
+
+    @GetMapping("/table")
+    public String moveAccountPage(){
+        return "/table";
+    }
 }

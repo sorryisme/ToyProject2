@@ -1,4 +1,10 @@
+
 spring:
+  devtools:
+    livereload:
+      enabled: true
+    mustache:
+      cache: false
   datasource:
       url: jdbc:h2:tcp://localhost/~/toyProject2
       username: sa

@@ -29,6 +29,9 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!-- toast grid ui -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
+    <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
 </head>
 <body>
 
@@ -36,8 +39,6 @@
     <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
 
     <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
-
-
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
@@ -59,7 +60,7 @@
                     </a>
                 </li>
                 <li class="active">
-                    <a href="table.html">
+                    <a href="table.mustache">
                         <i class="pe-7s-note2"></i>
                         <p>Table List</p>
                     </a>
@@ -185,135 +186,16 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Striped Table with Hover</h4>
-                                <p class="category">Here is a subtitle for this table</p>
+                                <h4 class="title">가계비부</h4>
+                                <p class="category">금일 가계부 작성</p>
                             </div>
                             <div class="content table-responsive table-full-width">
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
-                                    	<th>City</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                                <!-- contents-->
+                                <div id="grid"></div>
                             </div>
+                            <button id="addRowsBtn">추가</button>
                         </div>
                     </div>
-
-
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="header">
-                                <h4 class="title">Table on Plain Background</h4>
-                                <p class="category">Here is a subtitle for this table</p>
-                            </div>
-                            <div class="content table-responsive table-full-width">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <th>ID</th>
-                                    	<th>Name</th>
-                                    	<th>Salary</th>
-                                    	<th>Country</th>
-                                    	<th>City</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>1</td>
-                                        	<td>Dakota Rice</td>
-                                        	<td>$36,738</td>
-                                        	<td>Niger</td>
-                                        	<td>Oud-Turnhout</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>2</td>
-                                        	<td>Minerva Hooper</td>
-                                        	<td>$23,789</td>
-                                        	<td>Curaçao</td>
-                                        	<td>Sinaai-Waas</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>3</td>
-                                        	<td>Sage Rodriguez</td>
-                                        	<td>$56,142</td>
-                                        	<td>Netherlands</td>
-                                        	<td>Baileux</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>4</td>
-                                        	<td>Philip Chaney</td>
-                                        	<td>$38,735</td>
-                                        	<td>Korea, South</td>
-                                        	<td>Overland Park</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>5</td>
-                                        	<td>Doris Greene</td>
-                                        	<td>$63,542</td>
-                                        	<td>Malawi</td>
-                                        	<td>Feldkirchen in Kärnten</td>
-                                        </tr>
-                                        <tr>
-                                        	<td>6</td>
-                                        	<td>Mason Porter</td>
-                                        	<td>$78,615</td>
-                                        	<td>Chile</td>
-                                        	<td>Gloucester</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             </div>
         </div>
@@ -376,5 +258,138 @@
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="assets/js/demo.js"></script>
 
+    <script>
+        $(function(){
+
+          /*  const gridData = [
+                {"payDate" : "2020.09.13",
+                    "title" : "title",
+                 "consumerType" : "test",
+                    "price" : "5000"
+                }
+            ];*/
+
+            class CustomTextEditor {
+                constructor(props) {
+                    const el = document.createElement('input');
+                    const { maxLength } = props.columnInfo.editor.options;
+
+                    el.type = 'text';
+                    el.maxLength = maxLength;
+                    el.value = String(props.value);
+
+                    this.el = el;
+                }
+
+                getElement() {
+                    return this.el;
+                }
+
+                getValue() {
+                    return this.el.value;
+                }
+
+                mounted() {
+                    this.el.select();
+                }
+            }
+
+
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                scrollX: false,
+                scrollY: false,
+                //data: gridData,
+                columns: [
+                    {
+                        header: '날짜',
+                        name: 'payDate',
+                        onBeforeChange(ev) {
+                            console.log('Name before change:', ev);
+                        },
+                        onAfterChange(ev) {
+                            console.log('Name after change:', ev);
+                        },
+                        editor: 'text'
+                    },
+                    {
+                        header: '항목',
+                        name: 'artist',
+                        onBeforeChange(ev) {
+                            console.log('Artist before change:', ev);
+                        },
+                        onAfterChange(ev) {
+                            console.log('Artist after change:', ev);
+                        },
+                        editor: {
+                            type: CustomTextEditor,
+                            options: {
+                                maxLength: 10
+                            }
+                        }
+                    },
+                    {
+                        header: '유형',
+                        name: 'consumerType',
+                        onBeforeChange(ev) {
+                            console.log('Type before change:' + ev);
+                        },
+                        onAfterChange(ev) {
+                            console.log('Type after change:' + ev);
+                        },
+                        formatter: 'listItemText',
+                        editor: {
+                            type: 'select',
+                            options: {
+                                listItems: [
+                                    { text: '소비', value: '1' },
+                                    { text: '낭비', value: '2' },
+                                    { text: '투자', value: '3' }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        header: '소비금액',
+                        name: 'price',
+                        onBeforeChange(ev) {
+                            console.log('Grade before change:' + ev);
+                        },
+                        onAfterChange(ev) {
+                            console.log('Grade after change:' + ev);
+                        },
+                        copyOptions: {
+                            useListItemText: true
+                        },
+                        formatter: 'listItemText',
+                        editor: {
+                            type: 'radio',
+                            options: {
+                                listItems: [
+                                    { text: '★☆☆', value: '1' },
+                                    { text: '★★☆', value: '2' },
+                                    { text: '★★★', value: '3' }
+                                ]
+                            }
+                        }
+                    }
+                ]
+
+            });
+
+            $("#addRowsBtn").click(function(){
+                const rowData = [{payDate: "", cntNm: "", cntKorNm: "",  cntetKorNm: "", useYn : "" , dispSeq: ""}]
+
+                grid.appendRow(rowData, {
+                    at: 1,
+                    extendPrevRowSpan: true,
+                    focus: true
+                });
+            });
+        });
+
+
+
+    </script>
 
 </html>
