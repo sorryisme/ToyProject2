@@ -29,6 +29,6 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-
+/tui/node_modules/
 ### VS Code ###
 .vscode/

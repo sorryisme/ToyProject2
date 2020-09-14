@@ -26,12 +26,19 @@
 
 
     <!--     Fonts and icons     -->
+
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
-    <!-- toast grid ui -->
-    <link rel="stylesheet" href="https://uicdn.toast.com/tui-grid/latest/tui-grid.css" />
-    <script src="https://uicdn.toast.com/tui-grid/latest/tui-grid.js"></script>
+    <!-- tui datePicker -->
+    <script src="/tui/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/tui/node_modules/tui-code-snippet/dist/tui-code-snippet.min.js"></script>
+    <link rel="stylesheet" href="/tui/node_modules/tui-date-picker/dist/tui-date-picker.css" />
+    <script src="/tui/node_modules/tui-date-picker/dist/tui-date-picker.js"></script>
+    <link rel="stylesheet" href="/tui/node_modules/tui-grid/dist/tui-grid.min.css" />
+    <script src="/tui/node_modules/tui-grid/dist/tui-grid.js"></script>
+
+
 </head>
 <body>
 
@@ -41,8 +48,8 @@
     <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
-                    Creative Tim
+                <a href="/" class="simple-text">
+                    Sorryisme AccountBook
                 </a>
             </div>
 
@@ -53,48 +60,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li>
-                    <a href="user.html">
-                        <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
                 <li class="active">
                     <a href="table.mustache">
                         <i class="pe-7s-note2"></i>
-                        <p>Table List</p>
+                        <p>Account Book</p>
                     </a>
                 </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="pe-7s-news-paper"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="pe-7s-science"></i>
-                        <p>Icons</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="maps.html">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Maps</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="notifications.html">
-                        <i class="pe-7s-bell"></i>
-                        <p>Notifications</p>
-                    </a>
-                </li>
-				<li class="active-pro">
-                    <a href="upgrade.html">
-                        <i class="pe-7s-rocket"></i>
-                        <p>Upgrade to PRO</p>
-                    </a>
-                </li>
+
             </ul>
     	</div>
     </div>
@@ -118,24 +90,6 @@
                                 <i class="fa fa-dashboard"></i>
 								<p class="hidden-lg hidden-md">Dashboard</p>
                             </a>
-                        </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret hidden-sm hidden-xs"></b>
-                                    <span class="notification hidden-sm hidden-xs">5</span>
-									<p class="hidden-lg hidden-md">
-										5 Notifications
-										<b class="caret"></b>
-									</p>
-                              </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
-                              </ul>
                         </li>
                         <li>
                            <a href="">
@@ -194,6 +148,7 @@
                                 <div id="grid"></div>
                             </div>
                             <button id="addRowsBtn">추가</button>
+                            <button id="add3RowsBtn">3행씩 추가</button>
                         </div>
                     </div>
                 </div>
@@ -249,9 +204,6 @@
     <!--  Notifications Plugin    -->
     <script src="assets/js/bootstrap-notify.js"></script>
 
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
@@ -261,15 +213,7 @@
     <script>
         $(function(){
 
-          /*  const gridData = [
-                {"payDate" : "2020.09.13",
-                    "title" : "title",
-                 "consumerType" : "test",
-                    "price" : "5000"
-                }
-            ];*/
-
-            class CustomTextEditor {
+         /*   class CustomTextEditor {
                 constructor(props) {
                     const el = document.createElement('input');
                     const { maxLength } = props.columnInfo.editor.options;
@@ -292,8 +236,100 @@
                 mounted() {
                     this.el.select();
                 }
-            }
+            }*/
+            const gridData = [
+                {
+                    c1: '1992/03/25',
+                    c2: '12/06/2019',
+                    c3: '2014-04-16',
+                    c4: '2019-11-19 09:00 AM',
+                    c5: '2019-11-19 09:00 AM',
+                    c6: '2019-01',
+                    c7: '2019'
+                }
+            ];
 
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                scrollX: false,
+                scrollY: false,
+                data: gridData,
+                columns: [
+                    {
+                        header: 'DatePicker (Default)',
+                        name: 'c1',
+                        editor: 'datePicker'
+                    },
+                    {
+                        header: 'DatePicker (Using options)',
+                        name: 'c2',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                format: 'dd/MM/yyyy'
+                            }
+                        }
+                    },
+                    {
+                        header: 'DatePicker (selectableRanges)',
+                        name: 'c3',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                selectableRanges: [[new Date(2014, 3, 10), new Date(2014, 5, 20)]]
+                            }
+                        }
+                    },
+                    {
+                        header: 'Date-TimePicker',
+                        name: 'c4',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                format: 'yyyy-MM-dd HH:mm A',
+                                timepicker: true
+                            }
+                        }
+                    },
+                    {
+                        header: 'Date-TimePicker With tab',
+                        name: 'c5',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                format: 'yyyy-MM-dd HH:mm A',
+                                timepicker: {
+                                    layoutType: 'tab',
+                                    inputType: 'spinbox'
+                                }
+                            }
+                        }
+                    },
+                    {
+                        header: 'MonthPicker',
+                        name: 'c6',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                format: 'yyyy-MM',
+                                type: 'month'
+                            }
+                        }
+                    },
+                    {
+                        header: 'YearPicker',
+                        name: 'c7',
+                        editor: {
+                            type: 'datePicker',
+                            options: {
+                                format: 'yyyy',
+                                type: 'year'
+                            }
+                        }
+                    }
+                ]
+            });
+/*
 
             const grid = new tui.Grid({
                 el: document.getElementById('grid'),
@@ -304,39 +340,26 @@
                     {
                         header: '날짜',
                         name: 'payDate',
-                        onBeforeChange(ev) {
-                            console.log('Name before change:', ev);
-                        },
-                        onAfterChange(ev) {
-                            console.log('Name after change:', ev);
-                        },
-                        editor: 'text'
+                        editor:'datePicker'
                     },
                     {
-                        header: '항목',
-                        name: 'artist',
-                        onBeforeChange(ev) {
-                            console.log('Artist before change:', ev);
-                        },
-                        onAfterChange(ev) {
-                            console.log('Artist after change:', ev);
-                        },
+                        header: 'DatePicker',
+                        name: 'c3',
                         editor: {
-                            type: CustomTextEditor,
+                            type: 'datePicker',
                             options: {
-                                maxLength: 10
+                                selectableRanges: [[new Date(2014, 3, 10), new Date(2014, 5, 20)]]
                             }
                         }
                     },
                     {
+                        header: '항목',
+                        name: 'title',
+                        editor: 'text'
+                    },
+                    {
                         header: '유형',
                         name: 'consumerType',
-                        onBeforeChange(ev) {
-                            console.log('Type before change:' + ev);
-                        },
-                        onAfterChange(ev) {
-                            console.log('Type after change:' + ev);
-                        },
                         formatter: 'listItemText',
                         editor: {
                             type: 'select',
@@ -352,30 +375,11 @@
                     {
                         header: '소비금액',
                         name: 'price',
-                        onBeforeChange(ev) {
-                            console.log('Grade before change:' + ev);
-                        },
-                        onAfterChange(ev) {
-                            console.log('Grade after change:' + ev);
-                        },
-                        copyOptions: {
-                            useListItemText: true
-                        },
-                        formatter: 'listItemText',
-                        editor: {
-                            type: 'radio',
-                            options: {
-                                listItems: [
-                                    { text: '★☆☆', value: '1' },
-                                    { text: '★★☆', value: '2' },
-                                    { text: '★★★', value: '3' }
-                                ]
-                            }
-                        }
+                        editor: 'text'
                     }
                 ]
 
-            });
+            });*/
 
             $("#addRowsBtn").click(function(){
                 const rowData = [{payDate: "", cntNm: "", cntKorNm: "",  cntetKorNm: "", useYn : "" , dispSeq: ""}]
@@ -386,6 +390,20 @@
                     focus: true
                 });
             });
+
+            $("#add3RowsBtn").click(function(){
+                const rowData = [{payDate: "", cntNm: "", cntKorNm: "",  cntetKorNm: "", useYn : "" , dispSeq: ""}]
+                for (let i = 0; i < 3; i++){
+                    grid.appendRow(rowData, {
+                        at: 1,
+                        extendPrevRowSpan: true,
+                        focus: true
+                    });
+                }
+
+            })
+
+
         });
 
 
