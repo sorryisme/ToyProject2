@@ -149,6 +149,7 @@
                             </div>
                             <button id="addRowsBtn">추가</button>
                             <button id="add3RowsBtn">3행씩 추가</button>
+                            <button id="saveBtn">저장</button>
                         </div>
                     </div>
                 </div>
@@ -213,124 +214,6 @@
     <script>
         $(function(){
 
-         /*   class CustomTextEditor {
-                constructor(props) {
-                    const el = document.createElement('input');
-                    const { maxLength } = props.columnInfo.editor.options;
-
-                    el.type = 'text';
-                    el.maxLength = maxLength;
-                    el.value = String(props.value);
-
-                    this.el = el;
-                }
-
-                getElement() {
-                    return this.el;
-                }
-
-                getValue() {
-                    return this.el.value;
-                }
-
-                mounted() {
-                    this.el.select();
-                }
-            }*/
-            const gridData = [
-                {
-                    c1: '1992/03/25',
-                    c2: '12/06/2019',
-                    c3: '2014-04-16',
-                    c4: '2019-11-19 09:00 AM',
-                    c5: '2019-11-19 09:00 AM',
-                    c6: '2019-01',
-                    c7: '2019'
-                }
-            ];
-
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                scrollX: false,
-                scrollY: false,
-                data: gridData,
-                columns: [
-                    {
-                        header: 'DatePicker (Default)',
-                        name: 'c1',
-                        editor: 'datePicker'
-                    },
-                    {
-                        header: 'DatePicker (Using options)',
-                        name: 'c2',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                format: 'dd/MM/yyyy'
-                            }
-                        }
-                    },
-                    {
-                        header: 'DatePicker (selectableRanges)',
-                        name: 'c3',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                selectableRanges: [[new Date(2014, 3, 10), new Date(2014, 5, 20)]]
-                            }
-                        }
-                    },
-                    {
-                        header: 'Date-TimePicker',
-                        name: 'c4',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                format: 'yyyy-MM-dd HH:mm A',
-                                timepicker: true
-                            }
-                        }
-                    },
-                    {
-                        header: 'Date-TimePicker With tab',
-                        name: 'c5',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                format: 'yyyy-MM-dd HH:mm A',
-                                timepicker: {
-                                    layoutType: 'tab',
-                                    inputType: 'spinbox'
-                                }
-                            }
-                        }
-                    },
-                    {
-                        header: 'MonthPicker',
-                        name: 'c6',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                format: 'yyyy-MM',
-                                type: 'month'
-                            }
-                        }
-                    },
-                    {
-                        header: 'YearPicker',
-                        name: 'c7',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                format: 'yyyy',
-                                type: 'year'
-                            }
-                        }
-                    }
-                ]
-            });
-/*
-
             const grid = new tui.Grid({
                 el: document.getElementById('grid'),
                 scrollX: false,
@@ -343,18 +226,13 @@
                         editor:'datePicker'
                     },
                     {
-                        header: 'DatePicker',
-                        name: 'c3',
-                        editor: {
-                            type: 'datePicker',
-                            options: {
-                                selectableRanges: [[new Date(2014, 3, 10), new Date(2014, 5, 20)]]
-                            }
-                        }
-                    },
-                    {
                         header: '항목',
                         name: 'title',
+                        editor: 'text'
+                    },
+                    {
+                        header: '소비금액',
+                        name: 'price',
                         editor: 'text'
                     },
                     {
@@ -371,37 +249,61 @@
                                 ]
                             }
                         }
-                    },
-                    {
-                        header: '소비금액',
-                        name: 'price',
-                        editor: 'text'
                     }
                 ]
 
-            });*/
+            });
+
 
             $("#addRowsBtn").click(function(){
-                const rowData = [{payDate: "", cntNm: "", cntKorNm: "",  cntetKorNm: "", useYn : "" , dispSeq: ""}]
-
+                const rowData = {payDate: "2020-09-04", title: "1", price: "0", consumerType: "1"};
                 grid.appendRow(rowData, {
-                    at: 1,
                     extendPrevRowSpan: true,
                     focus: true
                 });
             });
 
             $("#add3RowsBtn").click(function(){
-                const rowData = [{payDate: "", cntNm: "", cntKorNm: "",  cntetKorNm: "", useYn : "" , dispSeq: ""}]
+                const rowData = {payDate: "2020-09-04", title: "1", price: "0", consumerType: "1"};
                 for (let i = 0; i < 3; i++){
                     grid.appendRow(rowData, {
-                        at: 1,
                         extendPrevRowSpan: true,
                         focus: true
                     });
                 }
+            });
 
-            })
+            $("#saveBtn").click(function(){
+                let gridData = grid.getData();
+                let dataCnt = grid.getRowCount();
+                let sendData = [];
+
+                for (let i = 0 ; i < dataCnt; i++){
+                    let selectData = gridData[i];
+                    let dataObj = {
+                        "consumerType" : selectData["consumerType"],
+                        "payDate"      : selectData["payDate"],
+                        "price"        : selectData["price"],
+                        "title"        : selectData["title"]
+                    };
+
+                    sendData.push(dataObj);
+                }
+
+                $.ajax({
+                    url : ,
+                    data : sendData,
+                    type : 'POST',
+                    dataType : 'json'
+                }).done(function(result){
+                    console.log.log(result);
+                }).fail(function(xhr,status,error){
+                    console.log(error);
+                });
+
+
+
+            });
 
 
         });
