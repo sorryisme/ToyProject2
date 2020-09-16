@@ -1,10 +1,9 @@
-package com.account.sorry.model.Entity;
+package com.account.sorry.model.entity;
 
-import com.account.sorry.model.VO.UserVO;
+import com.account.sorry.model.vo.UserVO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 

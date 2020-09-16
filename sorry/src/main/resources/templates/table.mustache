@@ -289,14 +289,15 @@
 
                     sendData.push(dataObj);
                 }
-
+                console.log(JSON.stringify(sendData));
                 $.ajax({
-                    url : ,
-                    data : sendData,
+                    url : "/api/v1/account/save" ,
+                    data : JSON.stringify(sendData),
                     type : 'POST',
+                    contentType : 'application/json',
                     dataType : 'json'
                 }).done(function(result){
-                    console.log.log(result);
+                    console.log(result);
                 }).fail(function(xhr,status,error){
                     console.log(error);
                 });

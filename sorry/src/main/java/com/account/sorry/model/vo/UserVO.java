@@ -1,6 +1,6 @@
-package com.account.sorry.model.VO;
+package com.account.sorry.model.vo;
 
-import com.account.sorry.model.Entity.UserEntity;
+import com.account.sorry.model.entity.UserEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

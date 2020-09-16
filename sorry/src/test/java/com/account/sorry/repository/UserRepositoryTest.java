@@ -1,10 +1,9 @@
 package com.account.sorry.repository;
 
 
-import com.account.sorry.model.Entity.UserEntity;
-import com.account.sorry.model.VO.UserVO;
+import com.account.sorry.model.entity.UserEntity;
+import com.account.sorry.model.vo.UserVO;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
