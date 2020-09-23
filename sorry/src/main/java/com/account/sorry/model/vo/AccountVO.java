@@ -1,5 +1,6 @@
 package com.account.sorry.model.vo;
 
+import com.account.sorry.model.entity.AccountEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AccountVO {
 
-    private String consumerType;
+    private String title;
     private String payDate;
     private String price;
-    private String title;
+    private String consumerType;
+
+    public AccountEntity toEntity(){
+        return AccountEntity.builder()
+                        .title(this.title)
+                        .consumerType(this.payDate)
+                        .payDate(this.price)
+                        .consumerType(this.consumerType)
+                        .build();
+    }
 }
