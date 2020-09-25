@@ -20,8 +20,8 @@ public class AccountVO {
     public AccountEntity toEntity(){
         return AccountEntity.builder()
                         .title(this.title)
-                        .consumerType(this.payDate)
-                        .payDate(this.price)
+                        .payDate(this.payDate)
+                        .price(this.price)
                         .consumerType(this.consumerType)
                         .build();
     }
