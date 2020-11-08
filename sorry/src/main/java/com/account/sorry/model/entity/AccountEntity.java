@@ -11,8 +11,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Table(name = "ACCOUNT")
-@Builder
-public class AccountEntity {
+public class AccountEntity extends AuditingEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +21,14 @@ public class AccountEntity {
     private String payDate;
     private String consumerType;
     private String description;
+
+    @Builder
+    public AccountEntity(String title, String price, String payDate,String consumerType){
+        this.title = title;
+        this.price = price;
+        this.payDate = payDate;
+        this.consumerType = consumerType;
+    }
 
     public AccountVO toAccountVO(){
         return AccountVO.builder()

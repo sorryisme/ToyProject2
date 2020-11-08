@@ -1,3 +1,5 @@
+server:
+    port: 9999
 
 spring:
   devtools:
@@ -5,11 +7,11 @@ spring:
       enabled: true
     mustache:
       cache: false
-  datasource:
-      url: jdbc:h2:tcp://localhost/~/toyProject2
-      username: sa
-      passowrd:
-      driver-class-name: org.h2.Driver
+# datasource:
+#      url: jdbc:h2:tcp://localhost/~/toyProject2
+#      username: sa
+#      passowrd:
+#      driver-class-name: org.h2.Driver
 #    url: jdbc:mariadb://192.168.0.6:3306/ToyProject2
 #    username: sorry
 #    password: rlawltjd39
