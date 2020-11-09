@@ -33,6 +33,11 @@ public class AccountApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountVO());
     }
 
+    @GetMapping(path= "/account")
+    public ResponseEntity<List<AccountVO>> findAllAccount() throws Exception{
+        List<AccountVO> accountVOList = accountService.findAll(new AccountVO());
+        return ResponseEntity.status(HttpStatus.OK).body(accountVOList);
+    }
 
 
 }
