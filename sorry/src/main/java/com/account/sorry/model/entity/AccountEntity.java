@@ -1,11 +1,13 @@
 package com.account.sorry.model.entity;
 
+import com.account.sorry.model.AccountType;
 import com.account.sorry.model.vo.AccountVO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,13 +19,16 @@ public class AccountEntity extends AuditingEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String price;
-    private String payDate;
-    private String consumerType;
+    private Long price;
+    private LocalDateTime payDate;
+
+    @Enumerated(EnumType.STRING)
+    private AccountType consumerType;
+
     private String description;
 
     @Builder
-    public AccountEntity(String title, String price, String payDate,String consumerType){
+    public AccountEntity(String title, Long price, LocalDateTime payDate, AccountType consumerType){
         this.title = title;
         this.price = price;
         this.payDate = payDate;
@@ -35,6 +40,7 @@ public class AccountEntity extends AuditingEntity{
                         .title(title)
                         .price(price)
                         .payDate(payDate)
-                        .consumerType(consumerType).build();
+                        .consumerType(consumerType)
+                        .build();
     }
 }

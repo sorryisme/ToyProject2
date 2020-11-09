@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = {"/api/v1/account"}, produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class AccountApiController {
 
     private final AccountService accountService;
 
-    @PostMapping("/save")
+    @PostMapping(path = "/account")
     public ResponseEntity<AccountVO> saveAccount(@RequestBody List<AccountVO> accountVOList) throws Exception{
             accountVOList.forEach( accountVO -> {
                 try {

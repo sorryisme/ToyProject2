@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -19,5 +22,11 @@ public class AccountServiceImpl implements AccountService {
     public AccountVO saveAccount(AccountVO accountVO) throws Exception {
         AccountEntity savedAccount = accountRepository.save(accountVO.toEntity());
         return savedAccount.toAccountVO();
+    }
+
+    @Override
+    public List<AccountVO> findAll(AccountVO accountVO) throws Exception {
+        List<AccountEntity> accountEntityList = accountRepository.findAll();
+        return accountEntityList.stream().map(AccountEntity::toAccountVO).collect(Collectors.toList());
     }
 }
