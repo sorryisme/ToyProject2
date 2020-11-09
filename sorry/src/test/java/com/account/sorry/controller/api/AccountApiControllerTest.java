@@ -13,16 +13,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(AccountApiController.class)
@@ -68,11 +67,17 @@ class AccountApiControllerTest {
                                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andReturn();
-
-
+                .andExpect(jsonPath("$",hasSize(2)))
+                .andExpect(jsonPath("$[0].title",is("중식")))
+                .andExpect(jsonPath("$[0].price",is(3_000L)))
+                .andExpect(jsonPath("$[0].consumerType", is(AccountType.consume.getValue())));
         //then
+    }
 
+    @Test
+    public void request_contentType_not_json() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account"))
+                .andExpect(status().is4xxClientError());
     }
 
 }
