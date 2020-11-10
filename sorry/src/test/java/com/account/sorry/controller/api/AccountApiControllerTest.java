@@ -80,4 +80,12 @@ class AccountApiControllerTest {
                 .andExpect(status().is4xxClientError());
     }
 
+
+    @Test
+    public void response_contentType_not_json() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+
 }
