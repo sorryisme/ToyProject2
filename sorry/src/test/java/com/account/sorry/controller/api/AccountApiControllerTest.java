@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -34,44 +35,66 @@ class AccountApiControllerTest {
     private AccountService accountService;
 
 
-    AccountVO firstAccount;
-    AccountVO secondAccount;
-
-    @Before
-    public void 가계부_기본_셋업(){
-        firstAccount  = new AccountVO().builder()
-                                        .title("중식")
-                                        .payDate(LocalDateTime.now().minusDays(1L))
-                                        .price(3_000L)
-                                        .consumerType(AccountType.consume)
-                                        .build();
-
-        secondAccount = new AccountVO().builder()
-                                        .title("중식")
-                                        .payDate(LocalDateTime.now().minusDays(1L))
-                                        .price(3_000L)
-                                        .consumerType(AccountType.consume)
-                                        .build();
-
-    }
-
     @Test
     public void 가계부_전체_조회() throws Exception{
-       //given
+        //given
+        AccountVO firstAccount  = new AccountVO().builder()
+                .title("중식")
+                .payDate(LocalDateTime.now().minusDays(1L))
+                .price(3_000L)
+                .consumerType(AccountType.consume)
+                .build();
+
+        AccountVO secondAccount = new AccountVO().builder()
+                .title("중식")
+                .payDate(LocalDateTime.now().minusDays(1L))
+                .price(3_000L)
+                .consumerType(AccountType.consume)
+                .build();
+
+        //when
        when(accountService.findAll(any())).thenReturn(Arrays.asList(
                firstAccount,secondAccount
        ));
 
-        //when
+        //then
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account")
                                     .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$",hasSize(2)))
                 .andExpect(jsonPath("$[0].title",is("중식")))
-                .andExpect(jsonPath("$[0].price",is(3_000L)))
+                .andExpect(jsonPath("$[0].price",is(3000)))
                 .andExpect(jsonPath("$[0].consumerType", is(AccountType.consume.getValue())));
+    }
+
+
+    @Test
+    public void 가계부_날짜별_조회() throws Exception{
+        //given
+        AccountVO firstAccount  = new AccountVO().builder()
+                .title("책구매")
+                .payDate(LocalDateTime.now().minusDays(1L))
+                .price(1_000L)
+                .consumerType(AccountType.invest)
+                .build();
+
+        AccountVO secondAccount = new AccountVO().builder()
+                .title("선물구매")
+                .payDate(LocalDateTime.now().minusDays(10L))
+                .price(4_000L)
+                .consumerType(AccountType.consume)
+                .build();
+
+        LocalDate findBeforeDate = LocalDate.of(2020,11,10);
+        LocalDate findAfterDate = LocalDate.of(2020,11,12);
+
+        //when
+        when(accountService.findByPayDateBetween(findBeforeDate,findAfterDate))
+                            .thenReturn(Arrays.asList(firstAccount,secondAccount));
+
         //then
+
     }
 
     @Test
