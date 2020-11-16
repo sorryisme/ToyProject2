@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -21,7 +23,25 @@ public class AccountApiController {
 
     private final AccountService accountService;
 
-    @PostMapping(path = "/account")
+
+    @GetMapping("/account")
+    public ResponseEntity<List<AccountVO>> findAllAccount() throws Exception{
+        List<AccountVO> accountVOList = accountService.findAll(new AccountVO());
+        return ResponseEntity.status(HttpStatus.OK).body(accountVOList);
+    }
+
+    @GetMapping("/accounts/search")
+    public ResponseEntity<List<AccountVO>> findByPayDateBetween(@RequestParam("beforeDate") String beforeDate, @RequestParam("afterDate") String afterDate) throws Exception {
+
+        LocalDate parseBeforeDate = LocalDate.parse(beforeDate, DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDate parseAfterDate = LocalDate.parse(beforeDate, DateTimeFormatter.ISO_LOCAL_DATE);
+
+        List<AccountVO> accountVOList = accountService.findByPayDateBetween(parseBeforeDate, parseAfterDate);
+        return ResponseEntity.status(HttpStatus.OK).body(accountVOList);
+    }
+
+
+    @PostMapping("/account")
     public ResponseEntity<AccountVO> saveAccount(@RequestBody List<AccountVO> accountVOList) throws Exception{
             accountVOList.forEach( accountVO -> {
                 try {
@@ -33,11 +53,8 @@ public class AccountApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new AccountVO());
     }
 
-    @GetMapping(path= "/account")
-    public ResponseEntity<List<AccountVO>> findAllAccount() throws Exception{
-        List<AccountVO> accountVOList = accountService.findAll(new AccountVO());
-        return ResponseEntity.status(HttpStatus.OK).body(accountVOList);
-    }
+
+
 
 
 }

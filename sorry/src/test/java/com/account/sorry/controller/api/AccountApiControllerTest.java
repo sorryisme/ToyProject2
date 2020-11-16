@@ -86,26 +86,38 @@ class AccountApiControllerTest {
                 .consumerType(AccountType.consume)
                 .build();
 
+
+
+        //when
+        when(accountService.findByPayDateBetween(any(),any()))
+                            .thenReturn(Arrays.asList(firstAccount));
+
+        //then
         LocalDate findBeforeDate = LocalDate.of(2020,11,10);
         LocalDate findAfterDate = LocalDate.of(2020,11,12);
 
-        //when
-        when(accountService.findByPayDateBetween(findBeforeDate,findAfterDate))
-                            .thenReturn(Arrays.asList(firstAccount,secondAccount));
+        mockMvc.perform( MockMvcRequestBuilders.get("/api/v1/accounts/search")
+                                                .param("beforeDate", findBeforeDate.toString())
+                                                .param( "afterDate", findAfterDate.toString())
+                                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].title" , is("책구매")));
 
-        //then
+
 
     }
 
     @Test
-    public void request_contentType_not_json() throws Exception {
+    public void request_ContentType이_JSON이_아닐경우() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account"))
                 .andExpect(status().is4xxClientError());
     }
 
 
     @Test
-    public void response_contentType_not_json() throws Exception {
+    public void request_accept_JSON_response가_JSON이_아닐경우() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
     }
