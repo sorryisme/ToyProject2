@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,5 +36,11 @@ public class AccountServiceImpl implements AccountService {
     public List<AccountVO> findByPayDateBetween(LocalDate beforeDate, LocalDate afterDate) {
         List<AccountEntity> accountEntityList = accountRepository.findByPayDateBetween(beforeDate,afterDate);
         return accountEntityList.stream().map(AccountEntity::toAccountVO).collect(Collectors.toList());
+    }
+
+    @Override
+    public AccountVO findById(AccountVO accountVO) throws Exception {
+        Optional<AccountEntity> entityOptional = accountRepository.findById(accountVO.getId());
+        return entityOptional.get().toAccountVO();
     }
 }

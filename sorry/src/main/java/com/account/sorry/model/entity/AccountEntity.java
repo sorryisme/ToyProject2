@@ -28,7 +28,8 @@ public class AccountEntity extends AuditingEntity{
     private String description;
 
     @Builder
-    public AccountEntity(String title, Long price, LocalDateTime payDate, AccountType consumerType){
+    public AccountEntity(Long id, String title, Long price, LocalDateTime payDate, AccountType consumerType){
+        this.id = id;
         this.title = title;
         this.price = price;
         this.payDate = payDate;
@@ -37,10 +38,11 @@ public class AccountEntity extends AuditingEntity{
 
     public AccountVO toAccountVO(){
         return AccountVO.builder()
-                        .title(title)
-                        .price(price)
-                        .payDate(payDate)
-                        .consumerType(consumerType)
+                        .id(this.id)
+                        .title(this.title)
+                        .price(this.price)
+                        .payDate(this.payDate)
+                        .consumerType(this.consumerType)
                         .build();
     }
 }

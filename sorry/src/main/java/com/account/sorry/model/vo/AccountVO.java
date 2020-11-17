@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AccountVO {
 
+    private Long id;
     private String title;
     private LocalDateTime payDate;
     private Long price;
@@ -22,6 +23,7 @@ public class AccountVO {
 
     public AccountEntity toEntity(){
         return AccountEntity.builder()
+                        .id(this.id)
                         .title(this.title)
                         .payDate(this.payDate)
                         .price(this.price)

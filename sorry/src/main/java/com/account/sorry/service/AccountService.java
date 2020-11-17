@@ -11,5 +11,7 @@ public interface AccountService {
 
     List<AccountVO> findAll(AccountVO accountVO) throws Exception;
 
-    List<AccountVO> findByPayDateBetween(LocalDate beforeDate, LocalDate afterDate);
+    List<AccountVO> findByPayDateBetween(LocalDate beforeDate, LocalDate afterDate) throws Exception;
+
+    AccountVO findById(AccountVO accountVO) throws Exception;
 }

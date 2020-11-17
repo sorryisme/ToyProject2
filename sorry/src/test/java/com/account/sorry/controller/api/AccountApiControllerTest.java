@@ -21,6 +21,7 @@ import java.util.Arrays;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -103,11 +104,12 @@ class AccountApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].title" , is("책구매")));
-
-
-
+                .andExpect(jsonPath("$[0].title" , is("책구매")))
+                .andExpect(jsonPath("$[0].price", is(1000)))
+                .andExpect(jsonPath("$[0].consumerType",is(AccountType.invest.getValue())));
     }
+
+
 
     @Test
     public void request_ContentType이_JSON이_아닐경우() throws Exception {
@@ -120,6 +122,25 @@ class AccountApiControllerTest {
     public void request_accept_JSON_response가_JSON이_아닐경우() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/account").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void 가계부_수정() throws Exception {
+        //given
+        Long findId = 1L;
+        AccountVO firstAccount  = new AccountVO().builder()
+                                                .id(findId)
+                                                .title("수정전_가계부")
+                                                .payDate(LocalDateTime.now().minusDays(1L))
+                                                .price(1_000L)
+                                                .consumerType(AccountType.invest)
+                                                .build();
+
+        //when
+        when(accountService.findById(any())).thenReturn(firstAccount);
+
+
+
     }
 
 
